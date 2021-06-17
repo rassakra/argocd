@@ -1,0 +1,30 @@
+
+{{ range .Values.applications }}
+{{ range .Values.applications.application }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.application.name }}
+spec:
+  project:  {{ .Values.application.project }}
+  source:
+    repoURL:  {{ .Values.application.source.repoURL }}
+    path: {{ .Values.application.source.path }}
+    targetRevision: {{ .Values.application.source.targetRevision }}
+    helm:
+      valueFiles:
+        - {{ .Values.application.source.valueFiles }}
+  destination:
+    server: {{ .Values.application.destination.server }}
+    namespace: {{ .Values.application.destination.namespace }}
+  syncPolicy:
+    automated:
+      prune: {{ .Values.application.prune }}
+      allowEmpty: {{ .Values.application.allowEmpty }}
+    syncOptions:
+      - PruneLast= {{ .Values.application.pruneLast }}
+      - CreateNamespace= {{ .Values.application.createNamespace }}
+
+
+{{ end }}
+{{ end }}

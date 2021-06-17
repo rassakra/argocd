@@ -1,0 +1,20 @@
+# Default values for argocd-app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+applications:
+  - application:
+      name: app1
+      project: project1
+      prune: true
+      allowEmpty: true
+      PruneLast: true
+      createNamespace: true
+      source:
+        repoURL: Helm
+        path: project
+        targetRevision: v1
+        valueFiles: values.yaml
+      destination:
+        server: https
+        namespace: dev-meeraspace-chatbot
+
