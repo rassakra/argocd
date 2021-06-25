@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'test-elevate-chatbot-actions'
+  name: 'dev-tj-smart-search'
 spec:
   project: test-chatbot
   source:
     repoURL: >-
-      https://repository_ro_key:qVWPd3RPEgXoyjv88aX6@gitlab.com/target-digital-transformation/devops-group/manifests/chatbot/elevate-chatbot-actions.git
-    path: helm/1-0-test-gke-test/elevate-chatbot-actions
+     https://repository_ro_key:5isGzGJsktx2uGrnB6k9@gitlab.com/target-digital-transformation/devops-group/manifests/chatbot/tj-smart-search.git
+    path: helm/1-0-test-gke-test/tj-smart-search
     targetRevision: master
     helm:
       valueFiles:
