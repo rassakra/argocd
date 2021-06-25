@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'dev-tj-smart-search'
+spec:
+  project: dev-chatbot
+  source:
+    repoURL: >-
+      https://repository_ro_key:5isGzGJsktx2uGrnB6k9@gitlab.com/target-digital-transformation/devops-group/manifests/chatbot/tj-smart-search.git
+    path: helm/0-0-dev-gke-dev/tj-smart-search
+    targetRevision: master
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://35.232.144.74'
+    namespace: dev-meeraspace-chatbot
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+
+

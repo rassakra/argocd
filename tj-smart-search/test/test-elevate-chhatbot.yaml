@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-elevate-chatbot
+spec:
+  destination:
+    name: ''
+    namespace: test-meeraspace-chatbot
+    server: 'https://104.196.65.228'
+  source:
+    path: helm/1-0-test-gke-test/elevate-chatbot
+    repoURL: >-
+      https://repository_ro_key:Pd9C1n2mbpxZuEZxt2z-@gitlab.com/target-digital-transformation/devops-group/manifests/chatbot/elevate-chatbot.git
+    targetRevision: master
+    helm:
+      valueFiles:
+        - values-test.yaml
+  project: test-chatbot
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
