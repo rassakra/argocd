@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ''
+spec:
+  project: dev-ldr
+  source:
+    repoURL: >-
+      https://repository_ro_key:ovrtFq2tpbuzsEdiKEGP@gitlab.com/target-digital-transformation/devops-group/manifests/ldr/ldr-be.git
+    path: helm/0-0-dev-gke-dev/ldr-be
+    targetRevision: master
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://35.232.144.74'
+    namespace: dev-meeraspace-ldr
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+
+

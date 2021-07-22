@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'dev-sf-text-analyzer'
+spec:
+  project: dev-chatbot
+  source:
+    repoURL: >-
+      https://repository_ro_key:AUpQb_SuPMhMvFBwGFVY@gitlab.com/target-digital-transformation/devops-group/manifests/chatbot/sf-text-analyzer.git
+    path: helm/0-0-dev-gke-dev/sf-text-analyzer
+    targetRevision: master
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://35.232.144.74'
+    namespace: dev-meeraspace-chatbot
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+
+
