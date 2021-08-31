@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-timesheet-be
+spec:
+  destination:
+    name: ''
+    namespace: dev-meeraspace-timesheet
+    server: 'https://35.232.144.74'
+  source:
+    path: helm/0-0-dev-gke-dev/timesheet-be
+    repoURL: >-
+      https://g-argocd:jDm6xzHPtZ4sh_thZTzF@gitlab.com/target-digital-transformation/devops-group/manifests/general/timesheet-be.git
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  project: dev-timesheet
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

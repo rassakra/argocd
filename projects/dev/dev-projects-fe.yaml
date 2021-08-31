@@ -1,20 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 'dev-ldr-be'
+  name: 'dev-projects-fe'
 spec:
-  project: dev-ldr
+  project: dev-projects
   source:
     repoURL: >-
-      https://repository_ro_key:ovrtFq2tpbuzsEdiKEGP@gitlab.com/target-digital-transformation/devops-group/manifests/ldr/ldr-be.git
-    path: helm/0-0-dev-gke-dev/ldr-be
+      https://repository_ro_key:p-UnyNs3piwNnVHxCf7B@gitlab.com/target-digital-transformation/devops-group/manifests/projects/projects-fe.git
+    path: helm/0-0-dev-gke-dev/projects-fe
     targetRevision: master
     helm:
       valueFiles:
         - values.yaml
   destination:
     server: 'https://35.232.144.74'
-    namespace: dev-meeraspace-ldr
+    namespace: dev-meeraspace-projects
   syncPolicy:
     automated:
       prune: true
@@ -22,5 +22,3 @@ spec:
     syncOptions:
       - PruneLast=true
       - CreateNamespace=true
-
-
