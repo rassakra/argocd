@@ -1,0 +1,55 @@
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'dev-eam-be'
+spec:
+  project: dev-eam
+  source:
+    repoURL: >-
+      https://repository_ro_key:p1x-o_sx_rGKs8w4Wxv7@gitlab.com/target-digital-transformation/devops-group/manifests/eam/energy-asset-management.git
+    path: helm/0-0-dev-gke-dev/energy-asset-management
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://35.232.144.74'
+    namespace: dev-meeraspace-eam
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-eam-be
+spec:
+  destination:
+    name: ''
+    namespace: test-meeraspace-eam
+    server: 'https://104.196.65.228'
+  source:
+    path: helm/1-0-test-gke-test/energy-asset-management
+    repoURL: >-
+      https://repository_ro_key:p1x-o_sx_rGKs8w4Wxv7@gitlab.com/target-digital-transformation/devops-group/manifests/eam/energy-asset-management.git
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values-test.yaml
+  project: test-eam
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+

@@ -1,0 +1,53 @@
+
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'dev-eam-fe'
+spec:
+  project: dev-eam
+  source:
+    repoURL: >-
+      https://repository_ro_key:XsECytwASE4KpWMAqV3M@gitlab.com/target-digital-transformation/devops-group/manifests/eam/eam-fe.git
+    path: helm/0-0-dev-gke-dev/eam-fe
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: 'https://35.232.144.74'
+    namespace: dev-meeraspace-eam
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
+
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'test-eam-fe'
+spec:
+  project: test-eam
+  source:
+    repoURL: >-
+      https://repository_ro_key:XsECytwASE4KpWMAqV3M@gitlab.com/target-digital-transformation/devops-group/manifests/eam/eam-fe.git
+    path: helm/1-0-test-gke-test/eam-fe
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values-test.yaml
+  destination:
+    server: 'https://104.196.65.228'
+    namespace: test-meeraspace-eam
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true

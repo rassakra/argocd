@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test-bayen-svc-be
+spec:
+  destination:
+    name: ''
+    namespace: test-meeraspace-bayen
+    server: 'https://104.196.65.228'
+  source:
+    path: helm/1-0-test-gke-test/bayen-svc
+    repoURL: >-
+      https://repository_ro_key:aMmKh_wFumYHswy9xHbj@gitlab.com/target-digital-transformation/devops-group/manifests/bayen/bayen-svc.git
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values-test.yaml
+  project: test-bayen
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
